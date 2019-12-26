@@ -1,0 +1,52 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+  options:
+    managed: False
+    ansible_connection_options:
+      ansible_connection: local
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  # options:
+  #   vvv: True
+  # env:
+  #   ANSIBLE_LIBRARY: "/tmp/library/*:/tmp/library/*/library/*"
+  #   ANSIBLE_MODULE_UTILS: "/tmp/library/module_utils:/tmp/library/*/module_utils/*"
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+
+scenario:
+  name: default # optional
+  check_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - create
+    - prepare
+    - converge
+    - check
+    - destroy
+  converge_sequence:
+    - dependency
+    - converge
+  destroy_sequence:
+    - dependency
+    - cleanup
+    - destroy
+  test_sequence:
+    - lint
+    - syntax
+    - converge
+    - idempotence
+    - verify
+    - cleanup

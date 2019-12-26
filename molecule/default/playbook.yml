@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    nsxt_manager:
+      hostname: "frtdclabnsxv01t.nsxlab.forterro.internal"
+      username: "admin"
+      password: "passw0rdVmware1*"
+      validate_certs: false
+    nsxt_tier0:
+      state: present
+      display_name: "test-role001"
+  roles:
+    - role: vmware-nsxt-tier0-gateway

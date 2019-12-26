@@ -1,0 +1,13 @@
+---
+# defaults file for vmware-nsxt-tier0-gateway
+
+internal_nsxt_manager:
+  hostname: null
+  username: null
+  password: null
+  port: null
+  validate_certs: false
+
+internal_nsxt_tier0:
+  state: present
+  display_name: "test"

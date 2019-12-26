@@ -1,0 +1,26 @@
+- name: Verify
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    nsxt_manager:
+      hostname: "frtdclabnsxv01t.nsxlab.forterro.internal"
+      username: "admin"
+      password: "passw0rdVmware1*"
+      validate_certs: false
+    nsxt_tier0:
+      state: present
+      display_name: "test-role001"
+  tasks:
+    - name: Get tier0 facts
+      nsxt_policy_tier0s_facts:
+        hostname: "{{ nsxt_manager.hostname }}"
+        username: "{{ nsxt_manager.username }}"
+        password: "{{ nsxt_manager.password }}"
+        validate_certs: "{{ nsxt_manager.validate_certs }}"
+        display_name: "{{ nsxt_tier0.display_name }}"
+      register: tier0_facts
+
+    - name: Show tier0 output
+      debug:
+        var: tier0_facts

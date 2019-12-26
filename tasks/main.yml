@@ -1,0 +1,18 @@
+---
+# tasks file for vmware-nsxt-tier0-gateway
+
+# Sync dictionaries
+- name: Combine default and user-defined dictionnaries
+  set_fact:
+    internal_nsxt_tier0: "{{ internal_nsxt_tier0 | default({}) | combine({item.key : item.value}, recursive=True) }}"
+  loop: "{{ q('dict', nsxt_tier0) }}"
+  when: nsxt_tier0 is defined
+
+- name: "Manage NSX-T Tier0 gateway"
+  nsxt_policy_tier0s:
+    hostname: "{{ nsxt_manager.hostname }}"
+    username: "{{ nsxt_manager.username }}"
+    password: "{{ nsxt_manager.password }}"
+    validate_certs: "{{ nsxt_manager.validate_certs }}"
+    display_name: "{{ nsxt_tier0.display_name }}"
+    state: "{{ nsxt_tier0.state }}"
