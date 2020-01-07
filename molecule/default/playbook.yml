@@ -12,5 +12,6 @@
     nsxt_tier0:
       state: present
       display_name: "test-role001"
+      ha_mode: "ACTIVE_STANDBY"
   roles:
     - role: vmware-nsxt-tier0-gateway

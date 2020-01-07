@@ -24,3 +24,10 @@
     - name: Show tier0 output
       debug:
         var: tier0_facts
+
+    - name: Assert that tier0 is created
+      assert:
+        that:
+          - tier0_facts.tier_0 is defined
+          - tier0_facts.tier_0.display_name is defined
+          - tier0_facts.tier_0.display_name == nsxt_tier0.display_name

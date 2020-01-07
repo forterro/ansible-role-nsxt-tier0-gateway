@@ -1,13 +1,24 @@
 ---
 # defaults file for vmware-nsxt-tier0-gateway
 
-internal_nsxt_manager:
-  hostname: null
-  username: null
-  password: null
-  port: null
-  validate_certs: false
+# nsxt_manager:
+#   hostname: null
+#   username: null
+#   password: null
+#   port: null
+#   validate_certs: false
 
 internal_nsxt_tier0:
   state: present
-  display_name: "test"
+  # display_name:                                         # [MANDATORY][STR]
+  dhcp_config_paths: []
+  disable_firewall: false
+  failover_mode: "NON_PREEMPTIVE"
+  ha_mode: "ACTIVE_ACTIVE"
+  internal_transit_subnets:
+    - 169.254.0.0/24
+  ipv6_profile_paths:
+    - "/infra/ipv6-ndra-profiles/default"
+    - "/infra/ipv6-dad-profiles/default"
+  transit_subnets:
+    - "100.64.0.0/16"
